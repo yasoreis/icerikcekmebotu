@@ -160,6 +160,27 @@ def start(message):
     register_user(message.from_user.id)
     bot.reply_to(message, "👋 Hoş geldin! ID'niz kaydedildi.\n\nEğer kodun varsa `/kodkullan KOD` yazarak 5 hak kazanabilirsin.")
 
+# --- DEBUG VE TAMİR KOMUTU ---
+@bot.message_handler(commands=['kimimben'])
+def debug_user(message):
+    uid = message.from_user.id
+    # Botun kodunda yazan ID ile senin ID'ni karşılaştırıyoruz
+    text = f"🆔 **Senin ID'n:** `{uid}`\n"
+    text += f"👑 **Kodda Yazan Admin ID:** `{ADMIN_ID}`\n\n"
+    
+    if uid == ADMIN_ID:
+        text += "✅ ID'ler Eşleşiyor! Sen Adminsin.\n"
+        # Veritabanını da zorla güncelle
+        try:
+            update_role(uid, 'admin')
+            text += "💾 Veritabanı rolün 'admin' olarak güncellendi."
+        except:
+            text += "⚠️ Veritabanı güncellenemedi."
+    else:
+        text += "❌ **EŞLEŞME YOK!**\nLütfen koddaki ADMIN_ID kısmına yukarıdaki 'Senin ID'n' yazan sayıyı kopyalayıp yapıştır."
+        
+    bot.reply_to(message, text)
+    
 @bot.message_handler(commands=['kodkullan'])
 def redeem(message):
     user_id = message.from_user.id
@@ -300,4 +321,5 @@ if __name__ == "__main__":
     t = threading.Thread(target=run_web)
     t.start()
     run_bot()
+
 
