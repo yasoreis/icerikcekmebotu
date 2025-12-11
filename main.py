@@ -8,7 +8,7 @@ from flask import Flask
 
 # --- AYARLAR ---
 BOT_TOKEN = "7960144659:AAHp07olQd3eMD_36rNLUnZV3Dqs91Xk02w"
-ADMIN_ID = 8586659198 # Kendi ID'n (Mutlaka sayı olarak gir)
+ADMIN_ID = 8460553292 # Kendi ID'n (Mutlaka sayı olarak gir)
 
 bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
@@ -321,5 +321,6 @@ if __name__ == "__main__":
     t = threading.Thread(target=run_web)
     t.start()
     run_bot()
+
 
 
